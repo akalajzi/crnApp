@@ -1,23 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Navigator, NativeModules, StatusBar, View } from 'react-native';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
+import routes from './routes';
+
+import { Blank, Container } from './components';
+
+const UIManager = NativeModules.UIManager;
+
+const uiTheme = {
+  palette: {
+    primaryColor: COLOR.green500,
+    accentColor: COLOR.pink500,
+  },
+};
 
 export default class App extends React.Component {
+  static configureScene(route) {
+    return route.animationType || Navigator.SceneConfigs.FloatFromRight;
+  }
+  static renderScene(route, navigator) {
+    return (
+      <Container>
+        <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
+        <View style={{ backgroundColor: COLOR.green500, height: 24 }} />
+        <route.Page
+          route={route}
+          navigator={navigator}
+          />
+      </Container>
+    );
+  }
+  componentWillMount() {
+    if (UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <ThemeProvider uiTheme={uiTheme}>
+        <Navigator
+          configureScene={App.configureScene}
+          initialRoute={routes.home}
+          ref={this.onNavigatorRef}
+          renderScene={App.renderScene}
+          />
+      </ThemeProvider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
