@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigator, NativeModules, StatusBar, View } from 'react-native';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-import routes from './routes';
+import routes from './src/routes';
 
-import { Blank, Container } from './components';
+import { Blank, Container } from './src/components';
 
 const UIManager = NativeModules.UIManager;
 

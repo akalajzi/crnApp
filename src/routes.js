@@ -1,5 +1,5 @@
 // components
-import { Blank, Home } from './components';
+import { Blank, Home } from './containers';
 
 export default {
     home: {
