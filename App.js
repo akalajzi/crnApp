@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Navigator, NativeModules, StatusBar, View } from 'react-native';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-import routes from './src/routes';
 
-import { Blank, Container } from './src/components';
+import { Blank, Container } from './src/components'
+import routes from './src/routes'
+import api from './src/config/api'
 
 const UIManager = NativeModules.UIManager;
 
@@ -14,10 +19,29 @@ const uiTheme = {
   },
 };
 
-export default class App extends React.Component {
+console.log(api);
+
+const networkInterface = createNetworkInterface({ uri: api.graphcool.simple })
+
+const client = new ApolloClient({
+  networkInterface,
+});
+
+const store = createStore(
+  combineReducers({
+    apollo: client.reducer(),
+  }),
+  {}, // initial state
+  composeWithDevTools(
+    applyMiddleware(client.middleware()),
+  ),
+);
+
+export default class App extends Component {
   static configureScene(route) {
     return route.animationType || Navigator.SceneConfigs.FloatFromRight;
   }
+
   static renderScene(route, navigator) {
     return (
       <Container>
@@ -30,21 +54,25 @@ export default class App extends React.Component {
       </Container>
     );
   }
+
   componentWillMount() {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
+
   render() {
     return (
-      <ThemeProvider uiTheme={uiTheme}>
-        <Navigator
-          configureScene={App.configureScene}
-          initialRoute={routes.home}
-          ref={this.onNavigatorRef}
-          renderScene={App.renderScene}
+      <ApolloProvider store={store} client={client}>
+        <ThemeProvider uiTheme={uiTheme}>
+          <Navigator
+            configureScene={App.configureScene}
+            initialRoute={routes.home}
+            ref={this.onNavigatorRef}
+            renderScene={App.renderScene}
           />
-      </ThemeProvider>
+        </ThemeProvider>
+      </ApolloProvider>
     );
   }
 }

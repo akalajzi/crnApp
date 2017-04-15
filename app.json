@@ -1,6 +1,9 @@
 {
   "expo": {
     "sdkVersion": "15.0.0",
-    "name": "CRNA POW"
+    "name": "CRNA POW",
+    "description": "Testing stuff",
+    "privacy": "unlisted",
+    "version": "0.0.1"
   }
 }
