@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { graphql, compose } from 'react-apollo';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, ToastAndroid } from 'react-native';
 import { Container } from '../../components'
-import { Toolbar } from 'react-native-material-ui';
+import { Toolbar, Card, ActionButton, BottomNavigation } from 'react-native-material-ui';
 
 import { USER_QUERY } from '../../graphql/user'
 
@@ -16,14 +16,13 @@ class Home extends Component {
     this.state = {
       searchText: '',
       selected: [],
-      active: null,
+      bottomHidden: false,
     }
   }
 
-  componentWillUpdate(nextProps) {
-    console.log('home got new props: ', nextProps);
+  handleCardPress() {
+    console.log("card pressed");
   }
-
 
   render() {
     return (
@@ -40,9 +39,33 @@ class Home extends Component {
             onSearchClosed: () => this.setState({ searchText: '' }),
           }}
           />
-        <Text>
-          Alooooo { this.props.User && this.props.User.name }
-        </Text>
+        <View style={{flex: 1}}>
+          <Text>
+            Alooooo { this.props.User && this.props.User.name }
+          </Text>
+          <Card>
+            <Text onPress={this.handleCardPress.bind(this)}>This is card</Text>
+          </Card>
+          <ActionButton
+            actions={[
+              { icon: 'create', label: 'Note' },
+              { icon: 'assignment', label: 'Task' },
+              { icon: 'schedule', label: 'Reminder' },
+              { icon: 'favorite', label: 'Wish' },
+            ]}
+            hidden={this.state.bottomHidden}
+            icon="add"
+            transition="speedDial"
+            onPress={(action) => {
+              if (Platform.OS === 'android') {
+                ToastAndroid.show(action, ToastAndroid.SHORT);
+              }
+            }}
+            style={{
+              positionContainer: {bottom: 76},
+            }}
+          />
+        </View>
       </Container>
     );
   }

@@ -6,7 +6,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 
-import { Blank, Container } from './src/components'
+import { Container } from './src/components'
+import BottomMenu from './src/containers/BottomMenu.react'
 import routes from './src/routes'
 import api from './src/config/api'
 
@@ -18,8 +19,6 @@ const uiTheme = {
     accentColor: COLOR.pink500,
   },
 };
-
-console.log(api);
 
 const networkInterface = createNetworkInterface({ uri: api.graphcool.simple })
 
@@ -55,6 +54,8 @@ export default class App extends Component {
     );
   }
 
+
+
   componentWillMount() {
     if (UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -70,6 +71,7 @@ export default class App extends Component {
             initialRoute={routes.home}
             ref={this.onNavigatorRef}
             renderScene={App.renderScene}
+            navigationBar={<BottomMenu/>}
           />
         </ThemeProvider>
       </ApolloProvider>
