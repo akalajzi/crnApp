@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator, NativeModules, StatusBar, View, Text } from 'react-native';
+import { Navigator, NativeModules, StatusBar, View } from 'react-native';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -7,7 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import { Font } from 'expo'
 
-import { Container } from './src/components'
+import { Container, Loader } from './src/components'
 import BottomMenu from './src/containers/BottomMenu.react'
 import routes from './src/routes'
 import api from './src/config/api'
@@ -19,7 +19,7 @@ const uiTheme = {
     primaryColor: COLOR.green500,
     accentColor: COLOR.pink500,
   },
-};
+}
 
 const networkInterface = createNetworkInterface({ uri: api.graphcool.simple })
 
@@ -96,7 +96,7 @@ export default class App extends Component {
               renderScene={App.renderScene}
               navigationBar={<BottomMenu/>}
             />
-            : <View><Text>Loading fonts</Text></View>
+            : <Loader />
           }
         </ThemeProvider>
       </ApolloProvider>

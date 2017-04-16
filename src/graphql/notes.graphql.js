@@ -29,7 +29,16 @@ const CREATE_NOTE_MUTATION = gql`
   ${NOTE_FRAGMENT}
 `
 
+const DELETE_NOTE_MUTATION = gql`
+  mutation deleteNote($id: ID!) {
+    deleteNote(id: $id) {
+      id
+    }
+  }
+`
+
 export {
   NOTES_BY_USER_QUERY,
   CREATE_NOTE_MUTATION,
+  DELETE_NOTE_MUTATION,
 }

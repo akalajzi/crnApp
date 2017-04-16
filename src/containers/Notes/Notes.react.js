@@ -11,8 +11,12 @@ import {
   View,
 } from 'react-native'
 
-import { NOTES_BY_USER_QUERY, CREATE_NOTE_MUTATION } from '../../graphql/notes.graphql'
-import { Container } from '../../components'
+import {
+  NOTES_BY_USER_QUERY,
+  CREATE_NOTE_MUTATION,
+  DELETE_NOTE_MUTATION,
+} from '../../graphql/notes.graphql'
+import { Container, Loader } from '../../components'
 import { TextField, IconToggle } from 'carbon-ui'
 
 import NoteCard from '../../components/Cards/NoteCard.react'
@@ -54,6 +58,8 @@ const defaultState = {
 const propTypes = {
   loading: PropTypes.bool.isRequired,
   notes: PropTypes.array.isRequired,
+  createNote: PropTypes.func,
+  deleteNote: PropTypes.func,
 }
 
 class Notes extends Component {
@@ -97,12 +103,12 @@ class Notes extends Component {
   render() {
     const { loading, notes } = this.props
 
+    const noteActions = {
+      deleteNote: this.props.deleteNote
+    }
+
     if (loading) {
-      return(
-        <View style={[styles.loading, styles.container]}>
-          <ActivityIndicator />
-        </View>
-      )
+      return <Loader />
     }
 
     return(
@@ -122,7 +128,7 @@ class Notes extends Component {
             }
           }}
           renderRow={(note) => (
-            <NoteCard props={note} />
+            <NoteCard {...note} actions={noteActions} />
           )}
         />
         <View style={styles.newNote}>
@@ -165,8 +171,6 @@ const createNote = graphql(CREATE_NOTE_MUTATION, {
         },
         updateQueries: {
           Notes: (previousResult, { mutationResult }) => {
-            console.log('previousResult ', previousResult);
-            console.log('mutationResult ', mutationResult);
             const newNote = mutationResult.data.createNote
             return update(previousResult, {
               allNotes: {
@@ -179,8 +183,29 @@ const createNote = graphql(CREATE_NOTE_MUTATION, {
   })
 })
 
+const deleteNote = graphql(DELETE_NOTE_MUTATION, {
+  props: ({ ownProps, mutate }) => ({
+    deleteNote: ({ id }) =>
+      mutate({
+        variables: { id },
+        updateQueries: {
+          Notes: (previousResult, {mutationResult}) => {
+            const deletedNote = mutationResult.data.deleteNote
+            return update(previousResult, {
+              allNotes: {
+                $set: previousResult.allNotes
+                  .filter(note => deletedNote.id !== note.id)
+              }
+            })
+          }
+        }
+      })
+  })
+})
+
 
 export default compose(
   userNotesQuery,
   createNote,
+  deleteNote,
 )(Notes)
