@@ -1,17 +1,28 @@
-import React, {Component} from 'react';
-import { graphql, compose } from 'react-apollo';
+import React, {Component} from 'react'
+import { graphql, compose } from 'react-apollo'
 
-import { Platform, StyleSheet, Text, View, ToastAndroid } from 'react-native';
+import { Platform, StyleSheet, Text, View, ToastAndroid } from 'react-native'
 import { Container } from '../../components'
-import { Toolbar, Card, ActionButton, BottomNavigation } from 'react-native-material-ui';
+import { Toolbar, Card, ActionButton, BottomNavigation } from 'react-native-material-ui'
 
-import { USER_QUERY } from '../../graphql/user'
+import Notes from '../Notes/Notes.react'
+import NoteCard from '../../components/Cards/NoteCard.react'
+
+import { USER_QUERY } from '../../graphql/user.graphql'
 
 const USER_ID = "cj1jl8xl8ikt50164272zrr7s"
+
+const defaultProps = {
+  User: {
+    name: 'you',
+    notes: [],
+  }
+}
 
 class Home extends Component {
   constructor(props) {
     super(props);
+
 
     this.state = {
       searchText: '',
@@ -25,13 +36,16 @@ class Home extends Component {
   }
 
   render() {
+    const { route, navigator, User } = this.props
+    const sceneTitle = `${route.title} ${User.name}`
+
     return (
       <Container>
         <Toolbar
           key='toolbar'
           leftElement='menu'
-          onLeftElementPress={() => this.props.navigator.pop()}
-          centerElement={this.props.route.title}
+          onLeftElementPress={() => navigator.pop()}
+          centerElement={sceneTitle}
           searchable={{
             autoFocus: true,
             placeholder: 'Search',
@@ -40,12 +54,8 @@ class Home extends Component {
           }}
           />
         <View style={{flex: 1}}>
-          <Text>
-            Alooooo { this.props.User && this.props.User.name }
-          </Text>
-          <Card>
-            <Text onPress={this.handleCardPress.bind(this)}>This is card</Text>
-          </Card>
+          <Notes />
+
           <ActionButton
             actions={[
               { icon: 'create', label: 'Note' },
@@ -70,6 +80,8 @@ class Home extends Component {
     );
   }
 }
+
+Home.defaultProps = defaultProps
 
 const userQuery = graphql(USER_QUERY, {
   options: ({ id }) => ({ variables: { id: USER_ID } }),

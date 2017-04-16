@@ -9,7 +9,7 @@ export default {
   },
   home: {
     index: 1,
-    title: 'Dis is home',
+    title: 'Hi',
     Page: Home,
   },
   people: {

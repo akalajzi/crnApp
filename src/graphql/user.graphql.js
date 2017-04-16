@@ -8,6 +8,12 @@ const USER_QUERY = gql`
       email
       name
       nickname
+      notes {
+        id
+        createdAt
+        updatedAt
+        text
+      }
     }
   }
 `
