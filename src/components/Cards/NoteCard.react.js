@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 import { StyleSheet, Text, View } from 'react-native'
 import { Card, ListItem } from 'react-native-material-ui'
@@ -11,11 +12,12 @@ const styles = StyleSheet.create({
 })
 
 export default function NoteCard({props}) {
+  const updated = moment(props.updatedAt).fromNow()
   return (
     <View>
       <Card>
         <ListItem
-          centerElement={<Text>{ props.createdAt }</Text>}
+          centerElement={<Text>{ updated }</Text>}
         />
         <View style={styles.textContainer} >
           <Text>

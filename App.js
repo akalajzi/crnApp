@@ -59,7 +59,7 @@ export default class App extends Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      // 'MaterialIcons-Regular': require('./assets/fonts/MaterialIcons-Regular.ttf'),
+      'MaterialIcons-Regular': require('./assets/fonts/MaterialIcons-Regular.ttf'),
       'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
       'Roboto-BlackItalic': require('./assets/fonts/Roboto-BlackItalic.ttf'),
       'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
