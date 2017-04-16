@@ -1,7 +1,7 @@
-import Blank from './Blank/Blank.react'
-import Home from './Home/Home.react'
+import Notes from './Notes/Notes.react'
+import BottomMenu from './BottomMenu.react'
 
 export {
-  Blank,
-  Home,
+  BottomMenu,
+  Notes,
 }

@@ -1,28 +1,14 @@
-import React, {Component} from 'react'
-import { graphql, compose } from 'react-apollo'
+import React, { Component } from 'react'
 
-import { Platform, StyleSheet, Text, View, ToastAndroid } from 'react-native'
-import { Container } from '../../components'
-import { Toolbar, Card, ActionButton, BottomNavigation } from 'react-native-material-ui'
+import { Platform, StyleSheet, View, ToastAndroid } from 'react-native'
+import { Toolbar, ActionButton } from 'react-native-material-ui'
 
-import Notes from '../Notes/Notes.react'
-import NoteCard from '../../components/Cards/NoteCard.react'
+import { Notes } from '../containers'
+import { Container } from '../components'
 
-import { USER_QUERY } from '../../graphql/user.graphql'
-
-const USER_ID = "cj1jl8xl8ikt50164272zrr7s"
-
-const defaultProps = {
-  User: {
-    name: 'you',
-    notes: [],
-  }
-}
-
-class Home extends Component {
+export default class NotesScene extends Component {
   constructor(props) {
     super(props);
-
 
     this.state = {
       searchText: '',
@@ -31,13 +17,9 @@ class Home extends Component {
     }
   }
 
-  handleCardPress() {
-    console.log("card pressed");
-  }
-
   render() {
-    const { route, navigator, User } = this.props
-    const sceneTitle = `${route.title} ${User.name}`
+    const { route, navigator } = this.props
+    const sceneTitle = `${route.title}`
 
     return (
       <Container>
@@ -80,16 +62,3 @@ class Home extends Component {
     );
   }
 }
-
-Home.defaultProps = defaultProps
-
-const userQuery = graphql(USER_QUERY, {
-  options: ({ id }) => ({ variables: { id: USER_ID } }),
-  props: ({ data: { loading, User } }) => ({
-    loading, User,
-  }),
-})
-
-export default compose(
-  userQuery,
-)(Home)

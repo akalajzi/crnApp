@@ -55,10 +55,10 @@ class BottomMenu extends Component {
           onPress={() => this.setState({ active: 'people' })}
         />
         <BottomNavigation.Action
-          key="settings"
+          key="notes"
           icon="whatshot"
-          label="Settings"
-          onPress={() => this.setState({ active: 'settings' })}
+          label="Notes"
+          onPress={() => this.navigateTo('notes')}
         />
       </BottomNavigation>
     );

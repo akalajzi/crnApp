@@ -1,29 +1,33 @@
 // components
-import { Blank, Home } from './containers';
+import {
+  BlankScene,
+  HomeScene,
+  NotesScene
+} from './scenes';
 
 export default {
   today: {
     index: 0,
     title: 'Today',
-    Page: Blank,
+    Page: BlankScene,
   },
   home: {
     index: 1,
     title: 'Hi',
-    Page: Home,
+    Page: HomeScene,
   },
   people: {
     index: 2,
     title: 'People',
-    Page: Blank,
+    Page: BlankScene,
   },
-  settings: {
+  notes: {
     index: 3,
-    title: 'Settings',
-    Page: Blank,
+    title: 'Notes',
+    Page: NotesScene,
   },
   blank: {
     title: 'Blank',
-    Page: Blank,
+    Page: BlankScene,
   },
 };

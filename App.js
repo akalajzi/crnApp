@@ -94,7 +94,7 @@ export default class App extends Component {
               initialRoute={routes.home}
               ref={this.onNavigatorRef}
               renderScene={App.renderScene}
-              navigationBar={<BottomMenu/>}
+              navigationBar={<BottomMenu />}
             />
             : <Loader />
           }

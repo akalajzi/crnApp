@@ -20,7 +20,6 @@ import { Container, Loader } from '../../components'
 import { TextField, IconToggle } from 'carbon-ui'
 
 import NoteCard from '../../components/Cards/NoteCard.react'
-import NotesEmpty from './NotesEmpty.react'
 
 const USER_ID = "cj1jl8xl8ikt50164272zrr7s"
 
