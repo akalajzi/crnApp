@@ -18,19 +18,14 @@ import {
   DELETE_NOTE_MUTATION,
 } from '../../graphql/notes.graphql'
 import { Container, Loader } from '../../components'
-import { TextField, IconToggle } from 'carbon-ui'
-import { Icon } from 'react-native-material-ui'
 
+import { SwipeLeftContent } from './SwipeElements.react'
 import NoteListItem from './NoteListItem.react'
 import NotesEmpty from './NotesEmpty.react'
 
 const USER_ID = "cj1jl8xl8ikt50164272zrr7s"
 
 const styles = StyleSheet.create({
-  newNote: {
-    paddingHorizontal: 10,
-    paddingBottom: 70,
-  },
   container: {
     alignItems: 'stretch',
     backgroundColor: '#e5ddd5',
@@ -40,12 +35,6 @@ const styles = StyleSheet.create({
   },
   loading: {
     justifyContent: 'center',
-  },
-  leftSwipeItem: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 20
   },
 })
 
@@ -68,20 +57,6 @@ const propTypes = {
   loading: PropTypes.bool.isRequired,
   notes: PropTypes.array.isRequired,
   deleteNote: PropTypes.func,
-}
-
-const SwipeLeftContent = ({active}) => {
-  return(
-    <View style={[styles.leftSwipeItem, {
-      backgroundColor: active ? 'red' : 'grey' }
-    ]}>
-      {
-        active
-        ? <Icon name="clear" style={{ color: '#fff'}}/>
-        : <Text style={{color: '#fff'}}>keep pulling...</Text>
-      }
-    </View>
-  )
 }
 
 class NoteList extends Component {
