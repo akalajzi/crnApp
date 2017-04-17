@@ -2,7 +2,8 @@
 import {
   BlankScene,
   HomeScene,
-  NotesScene
+  NotesScene,
+  NotesNewScene,
 } from './scenes';
 
 export default {
@@ -26,7 +27,13 @@ export default {
     title: 'Notes',
     Page: NotesScene,
   },
+  notesNew: {
+    index: 31,
+    title: 'New note',
+    Page: NotesNewScene,
+  },
   blank: {
+    index: 999,
     title: 'Blank',
     Page: BlankScene,
   },

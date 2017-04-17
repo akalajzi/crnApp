@@ -3,8 +3,16 @@ import React, { Component } from 'react'
 import { Platform, StyleSheet, View, ToastAndroid } from 'react-native'
 import { Toolbar, ActionButton } from 'react-native-material-ui'
 
-import { Notes } from '../containers'
+import {
+  NoteList,
+  NotesActionButton
+} from '../containers'
 import { Container } from '../components'
+import {navigateTo} from '../helpers/common.js'
+
+const styles = StyleSheet.create({
+
+})
 
 export default class NotesScene extends Component {
   constructor(props) {
@@ -15,6 +23,11 @@ export default class NotesScene extends Component {
       selected: [],
       bottomHidden: false,
     }
+  }
+
+  handleABPress() {
+    // open new note creator
+    navigateTo(this.props.navigator, 'notesNew')
   }
 
   render() {
@@ -36,26 +49,14 @@ export default class NotesScene extends Component {
           }}
           />
         <View style={{flex: 1}}>
-          <Notes />
-
+          <NoteList />
           <ActionButton
-            actions={[
-              { icon: 'create', label: 'Note' },
-              { icon: 'assignment', label: 'Task' },
-              { icon: 'schedule', label: 'Reminder' },
-              { icon: 'favorite', label: 'Wish' },
-            ]}
-            hidden={this.state.bottomHidden}
-            icon="add"
-            transition="speedDial"
-            onPress={(action) => {
-              if (Platform.OS === 'android') {
-                ToastAndroid.show(action, ToastAndroid.SHORT);
-              }
-            }}
             style={{
               positionContainer: {bottom: 76},
             }}
+            hidden={this.state.bottomHidden}
+            icon="add"
+            onPress={this.handleABPress.bind(this)}
           />
         </View>
       </Container>

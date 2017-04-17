@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import _ from 'lodash'
 
 import { BottomNavigation } from 'react-native-material-ui'
 import routes from '../routes'
+import { navigateTo } from '../helpers/common.js'
 
 class BottomMenu extends Component {
   constructor(props) {
@@ -17,16 +17,7 @@ class BottomMenu extends Component {
     this.setState({ active: page })
     const navigator = this.props.navigator
 
-    // check if component is mounted
-    const match = _.find(navigator.getCurrentRoutes(), (item) => {
-      return routes[page].index === item.index
-    })
-
-    if (match) {
-      navigator.jumpTo(routes[page])
-    } else {
-      navigator.push(routes[page])
-    }
+    navigateTo(navigator, page)
   }
 
   render() {
@@ -52,7 +43,7 @@ class BottomMenu extends Component {
           key="people"
           icon="people"
           label="People"
-          onPress={() => this.setState({ active: 'people' })}
+          onPress={() => this.navigateTo('newnote')}
         />
         <BottomNavigation.Action
           key="notes"
