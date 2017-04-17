@@ -30,6 +30,7 @@
     "react-apollo": "^1.0.1",
     "react-dom": "~15.4.2",
     "react-native": "0.42.3",
+    "react-native-material-textfield": "^0.2.6",
     "react-native-material-ui": "^1.8.0",
     "react-native-swipeable": "^0.4.0",
     "react-native-swiper": "^1.5.4",

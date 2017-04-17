@@ -21,7 +21,7 @@ export const SwipeLeftContent = ({active}) => {
     ]}>
       {
         active
-        ? <Icon name="clear" style={styles.itemContent}/>
+        ? <Icon name="clear" color='#fff' />
         : <Text style={styles.itemContent}>keep pulling...</Text>
       }
     </View>

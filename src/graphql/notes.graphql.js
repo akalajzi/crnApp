@@ -5,7 +5,10 @@ const NOTE_FRAGMENT = gql`
     id
     createdAt
     updatedAt
+    title
     text
+    reminder
+    colorLabel
   }
 `
 
@@ -21,8 +24,8 @@ const NOTES_BY_USER_QUERY = gql`
 `
 
 const CREATE_NOTE_MUTATION = gql`
-  mutation createNote($userId: ID, $text: String!) {
-    createNote(userId: $userId, text: $text) {
+  mutation createNote($userId: ID, $text: String, $title: String, $reminder: DateTime, $colorLabel: String) {
+    createNote(userId: $userId, text: $text, title: $title, reminder: $reminder, colorLabel: $colorLabel) {
       ...NoteFragment
     }
   }
