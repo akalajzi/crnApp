@@ -41,19 +41,27 @@ export default class NoteListItem extends Component {
   render() {
     const { text, title, reminder, colorLabel, updatedAt } = this.props
     const updated = moment(updatedAt).fromNow()
-    const primary = title || text
-    const secondary = text.length ? text : null
 
-    const iconColor = colorLabel || Colors.grey600
+    const centerText = {
+      primary: title || text,
+      secondary: text.length ? text : null,
+      tertiary: reminder ? moment(reminder).calendar() : null,
+    }
+
+    const icon = {
+      name: reminder ? 'schedule' : 'create',
+      color: colorLabel || Colors.grey600
+    }
 
     return(
       <View>
         <ListItem
           dense
-          leftElement={<Icon name='create' color={iconColor} />}
+          leftElement={<Icon name={icon.name} color={icon.color} />}
           centerElement={{
-            primaryText: primary,
-            secondaryText: secondary,
+            primaryText: centerText.primary,
+            secondaryText: centerText.secondary,
+            tertiaryText: centerText.tertiary,
           }}
           rightElement={
             <Text style={styles.rightText}>{updated}</Text>

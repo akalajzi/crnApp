@@ -12,6 +12,7 @@ import { Colors } from 'carbon-ui'
 
 import { Container } from '../components'
 import ColorSelector from '../containers/Notes/ColorSelector.react'
+import DateTimeSelector from '../containers/Notes/DateTimeSelector.react'
 
 const USER_ID = "cj1jl8xl8ikt50164272zrr7s"
 
@@ -64,6 +65,10 @@ class NotesNewScene extends Component {
     this.setState({colorLabel: color})
   }
 
+  handleDateTimeSelect(datetime){
+    this.setState({reminder: datetime})
+  }
+
   render() {
     const { route, navigator } = this.props
     const sceneTitle = `${route.title}`
@@ -96,7 +101,10 @@ class NotesNewScene extends Component {
             value={this.state.text}
             onChangeText={val => this.setState({text: val})}
           />
-          <Button primary text="Set reminder" icon="schedule" />
+          <DateTimeSelector
+            defaultDateTime={this.state.reminder}
+            onDateTimeSelect={this.handleDateTimeSelect.bind(this)}
+          />
           <ColorSelector
             defaultColor='grey'
             onColorSelect={this.handleColorSelect.bind(this)}
