@@ -40,10 +40,10 @@ class BottomMenu extends Component {
           onPress={() => this.navigateTo('home')}
         />
         <BottomNavigation.Action
-          key="people"
+          key="chat"
           icon="people"
-          label="People"
-          onPress={() => this.navigateTo('newnote')}
+          label="Chat"
+          onPress={() => this.navigateTo('chat')}
         />
         <BottomNavigation.Action
           key="notes"

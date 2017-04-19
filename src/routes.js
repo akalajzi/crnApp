@@ -1,6 +1,7 @@
 // components
 import {
   BlankScene,
+	ChatScene,
   HomeScene,
   NotesScene,
   NotesNewScene,
@@ -17,10 +18,10 @@ export default {
     title: 'Hi',
     Page: HomeScene,
   },
-  people: {
+  chat: {
     index: 2,
-    title: 'People',
-    Page: BlankScene,
+    title: 'Chat',
+    Page: ChatScene,
   },
   notes: {
     index: 3,
