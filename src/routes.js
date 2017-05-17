@@ -1,8 +1,9 @@
 // components
 import {
   BlankScene,
-	ChatScene,
+  ChatScene,
   HomeScene,
+  LoginScene,
   NotesScene,
   NotesNewScene,
 } from './scenes';
@@ -32,6 +33,11 @@ export default {
     index: 31,
     title: 'New note',
     Page: NotesNewScene,
+  },
+  login: {
+    index: 901,
+    title: 'Login',
+    Page: LoginScene,
   },
   blank: {
     index: 999,

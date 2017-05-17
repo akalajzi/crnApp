@@ -6,11 +6,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import { Font } from 'expo'
+import _ from 'lodash'
 
 import { Container, Loader } from './src/components'
 import BottomMenu from './src/containers/BottomMenu.react'
 import routes from './src/routes'
 import api from './src/config/api'
+
+import {LoginScene} from './src/scenes'
 
 const UIManager = NativeModules.UIManager;
 
@@ -85,9 +88,12 @@ export default class App extends Component {
   }
 
   render() {
+    console.log('store -> ', store.getState());
     return (
       <ApolloProvider store={store} client={client}>
-        <ThemeProvider uiTheme={uiTheme}>
+        { _.isEmpty(store.getState().apollo.data)
+          ? <LoginScene />
+          : <ThemeProvider uiTheme={uiTheme}>
           { this.state.fontsLoaded
             ? <Navigator
               configureScene={App.configureScene}
@@ -99,6 +105,7 @@ export default class App extends Component {
             : <Loader />
           }
         </ThemeProvider>
+      }
       </ApolloProvider>
     );
   }
